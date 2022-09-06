@@ -2,6 +2,8 @@ import { Command } from "commander";
 import { config } from "dotenv";
 import ora from "ora";
 
+// const { program } = require('commander');
+
 config();
 
 const program = new Command();
@@ -16,27 +18,19 @@ import {
 	getMovie,
 	getMovieReviews,
 } from "./utils/requestMethods.js";
-import {
-	renderPersonsData,
-	renderPersonData,
-	renderMoviesData,
-	renderMovieData,
-	renderMovieReviewsData,
-} from "./utils/renderMethods.js";
+
 import {
 	createSpinnerSuccessHandler,
 	createSpinnerErrorHandler,
 } from "./utils/createSpinnerHandlers.js";
+
 import { notify } from "./utils/notifiers.js";
 
 program
 	.command("get-persons")
 	.description("Make a network request to fetch most popular persons")
-	.requiredOption("-p, --popular", "Fetch the popular persons")
-	.requiredOption(
-		"--page <number>",
-		"The page of persons data results to fetch",
-	)
+	.option("-p, --popular", "Fetch the popular persons")
+	.option("--page <number>", "The page of persons data results to fetch")
 	.option("-s, --save", "Store the data in the filesystem")
 	.option("-l, --local", "Load the data from the filesystem first")
 	.action(function handleAction(programOptions) {
@@ -56,7 +50,6 @@ program
 			programOptions,
 			createSpinnerSuccessHandler(spinner),
 			createSpinnerErrorHandler(spinner),
-			renderPersonsData,
 			notify,
 		);
 	});
@@ -64,28 +57,32 @@ program
 program
 	.command("get-person")
 	.description("Make a network request to fetch the data of a single person")
-	.requiredOption("-i, --id <personID>", "The id of the person")
+	.requiredOption("-i, --id <number>", "The id of the person")
 	.option("-s, --save", "Store the data in the filesystem")
 	.option("-l, --local", "Load the data from the filesystem first")
-	.action(function handleAction(programOptions) {
-		const spinner = ora("Fetching the person data...").start();
-		const requestOptions = getPaginated(
-			`person/${programOptions.id}`,
-			process.env.API_KEY,
-		);
-		return getPerson(
-			requestOptions,
-			programOptions,
-			createSpinnerSuccessHandler(spinner),
-			createSpinnerErrorHandler(spinner),
-			renderPersonData,
-		);
+	.action(function (options) {
+		console.log(options);
+		getPerson(options.id);
 	});
+// .action(function handleAction(programOptions) {
+// 	const spinner = ora("Fetching the person data...").start();
+
+// const requestOptions = getPaginated(
+// 	`person/${programOptions.id}`,
+// 	process.env.API_KEY,
+// );
+// return getPerson(
+// 	requestOptions,
+// 	programOptions,
+// 	createSpinnerSuccessHandler(spinner),
+// 	createSpinnerErrorHandler(spinner),
+// );
+// });
 
 program
 	.command("get-movies")
 	.description("Make a network request to fetch movies")
-	.requiredOption("--page <number>", "The page of movies data results to fetch")
+	.option("--page <number>", "The page of movies data results to fetch")
 	.option("-p, --popular", "Fetch the popular movies", false)
 	.option("-n, --now-playing", "Fetch the movies that are playing now", false)
 	.option("-s, --save", "Store the data in the filesystem")
@@ -112,14 +109,13 @@ program
 			programOptions,
 			createSpinnerSuccessHandler(spinner),
 			createSpinnerErrorHandler(spinner),
-			renderMoviesData,
 		);
 	});
 
 program
 	.command("get-movie")
 	.description("Make a network request to fetch the data of a single person")
-	.requiredOption("-i, --id <movieID>", "The id of the movie")
+	.option("-i, --id <movieID>", "The id of the movie")
 	.option("-r, --reviews", "Fetch the reviews of the movie")
 	.option("-s, --save", "Store the data in the filesystem")
 	.option("-l, --local", "Load the data from the filesystem first")
@@ -136,7 +132,6 @@ program
 				programOptions,
 				createSpinnerSuccessHandler(spinner),
 				createSpinnerErrorHandler(spinner),
-				renderMovieReviewsData,
 			);
 		}
 		const requestOptions = getPaginated(requestPath, process.env.API_KEY);
@@ -145,16 +140,12 @@ program
 			programOptions,
 			createSpinnerSuccessHandler(spinner),
 			createSpinnerErrorHandler(spinner),
-			renderMovieData,
 		);
 	});
 
 // error on unknown commands
 program.on("command:*", function () {
-	console.error(
-		"Invalid command: %s\nSee --help for a list of available commands.",
-		program.args.join(" "),
-	);
+	console.error("Invalid Command", program.args.join(" "));
 	process.exit(1);
 });
 program.parse(process.argv);

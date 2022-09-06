@@ -46,7 +46,7 @@ export function storePersonsData(data, onSuccess, onFail, notify) {
 	}
 }
 
-export function readPersonsData(renderData, onSuccess, onFail, notify) {
+export function readPersonsData(onSuccess, onFail, notify) {
 	try {
 		const personsPath = ensureDirSync("persons");
 		const personsPathJSONFile = join(personsPath, "popular.json");
@@ -59,7 +59,6 @@ export function readPersonsData(renderData, onSuccess, onFail, notify) {
 				return onFail(err.message);
 			}
 			const data = JSON.parse(jsonData);
-			renderData(data.page, data.total_pages, data.results);
 			onSuccess("Popular Persons data loaded");
 			notify(
 				"Persons data",
@@ -86,7 +85,7 @@ export function storeMoviesData(data, onSuccess, onFail, notify) {
 	}
 }
 
-export function readMoviesData(renderData, onSuccess, onFail, notify) {
+export function readMoviesData(onSuccess, onFail, notify) {
 	try {
 		const moviesPath = ensureDirSync("movies");
 		const moviesPathJSONFile = join(moviesPath, "popular.json");
@@ -99,7 +98,6 @@ export function readMoviesData(renderData, onSuccess, onFail, notify) {
 				return onFail(err.message);
 			}
 			const data = JSON.parse(jsonData);
-			renderData(data.page, data.total_pages, data.results);
 			onSuccess("Movies data loaded");
 			notify(
 				"Movies data",
