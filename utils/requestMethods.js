@@ -1,7 +1,7 @@
 import { request } from "https";
-import { storePersonsData, readPersonsData, storeMoviesData, readMoviesData } from "./fsMethods.js";
+import { storePersonsData, readPersonsData,} from "./fsMethods.js";
 
-export function getPaginatedRequestOptions(
+export function getPaginated(
 	path = "person/popular",
 	apiKey = "",
 	page = 1,
@@ -20,7 +20,7 @@ export function getPaginatedRequestOptions(
 	};
 }
 
-export function getRequestOptions(path = "person/popular", apiKey = "") {
+export function getOptions(path = "person/popular", apiKey = "") {
 	return {
 		href: "https://api.themoviedb.org",
 		protocol: "https:",
@@ -73,7 +73,6 @@ export function getPersons(
 
 export function getPerson(
 	requestOptions,
-	programOptions,
 	onSpinnerSuccess,
 	onSpinnerError,
 	renderData,
@@ -142,7 +141,6 @@ export function getMovies(
 
 export function getMovie(
 	requestOptions,
-	programOptions,
 	onSpinnerSuccess,
 	onSpinnerError,
 	renderData,
@@ -170,7 +168,6 @@ export function getMovie(
 
 export function getMovieReviews(
 	requestOptions,
-	programOptions,
 	onSpinnerSuccess,
 	onSpinnerError,
 	renderData,
@@ -195,3 +192,4 @@ export function getMovieReviews(
 
 	req.end();
 }
+
