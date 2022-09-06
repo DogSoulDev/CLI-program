@@ -1,11 +1,9 @@
-import { notify as _notify } from "node-notifier";
+import { notify as _notify } from "notifiers";
 
-function notify(title, message) {
+export function notify(title, message) {
   _notify({
     title: title,
     message: message,
     time: 1000,
   });
 }
-
-export const notify = notify;

@@ -1,7 +1,7 @@
 import { mkdirSync, writeFile, readFile } from "fs";
 import { resolve, join } from "path";
 
-function ensureDirSync(pathname) {
+export function ensureDirSync(pathname) {
 	const SRC_PATH = resolve("src");
 	const FILES_PATH = join(SRC_PATH, "files");
 	const DIR_PATH = join(FILES_PATH, pathname);
@@ -18,7 +18,7 @@ function ensureDirSync(pathname) {
 	}
 }
 
-function saveLocalFile(filename, data, onSuccess, onFail) {
+export function saveLocalFile(filename, data, onSuccess, onFail) {
 	writeFile(filename, data, "utf8", function handleWriteFile(err) {
 		if (err) {
 			onFail(err.message);
@@ -28,7 +28,7 @@ function saveLocalFile(filename, data, onSuccess, onFail) {
 	});
 }
 
-function readLocalFile(filename, cb) {
+export function readLocalFile(filename, cb) {
 	readFile(filename, "utf8", function handleWriteFile(err, data) {
 		if (err) {
 			return cb(err, null);
@@ -38,7 +38,7 @@ function readLocalFile(filename, cb) {
 	});
 }
 
-function storePersonsData(data, onSuccess, onFail, notify) {
+export function storePersonsData(data, onSuccess, onFail, notify) {
 	try {
 		const personsPath = ensureDirSync("persons");
 		const personsPathJSONFile = join(personsPath, "popular.json");
@@ -54,7 +54,7 @@ function storePersonsData(data, onSuccess, onFail, notify) {
 	}
 }
 
-function readPersonsData(renderData, onSuccess, onFail, notify) {
+export function readPersonsData(renderData, onSuccess, onFail, notify) {
 	try {
 		const personsPath = ensureDirSync("persons");
 		const personsPathJSONFile = join(personsPath, "popular.json");
@@ -82,7 +82,7 @@ function readPersonsData(renderData, onSuccess, onFail, notify) {
 	}
 }
 
-function storeMoviesData(data, onSuccess, onFail, notify) {
+export function storeMoviesData(data, onSuccess, onFail, notify) {
 	try {
 		const moviesPath = ensureDirSync("movies");
 		const moviesPathJSONFile = join(moviesPath, "popular.json");
@@ -98,7 +98,7 @@ function storeMoviesData(data, onSuccess, onFail, notify) {
 	}
 }
 
-function readMoviesData(renderData, onSuccess, onFail, notify) {
+export function readMoviesData(renderData, onSuccess, onFail, notify) {
 	try {
 		const moviesPath = ensureDirSync("movies");
 		const moviesPathJSONFile = join(moviesPath, "popular.json");
@@ -125,11 +125,3 @@ function readMoviesData(renderData, onSuccess, onFail, notify) {
 		onFail(error.message);
 	}
 }
-
-export const ensureDirSync = ensureDirSync;
-export const saveLocalFile = saveLocalFile;
-export const readLocalFile = readLocalFile;
-export const storePersonsData = storePersonsData;
-export const readPersonsData = readPersonsData;
-export const storeMoviesData = storeMoviesData;
-export const readMoviesData = readMoviesData;

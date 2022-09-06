@@ -1,7 +1,7 @@
 import { request } from "https";
 import { storePersonsData, readPersonsData, storeMoviesData, readMoviesData } from "./fsMethods.js";
 
-function getPaginatedRequestOptions(
+export function getPaginatedRequestOptions(
 	path = "person/popular",
 	apiKey = "",
 	page = 1,
@@ -20,7 +20,7 @@ function getPaginatedRequestOptions(
 	};
 }
 
-function getRequestOptions(path = "person/popular", apiKey = "") {
+export function getRequestOptions(path = "person/popular", apiKey = "") {
 	return {
 		href: "https://api.themoviedb.org",
 		protocol: "https:",
@@ -35,7 +35,7 @@ function getRequestOptions(path = "person/popular", apiKey = "") {
 	};
 }
 
-function getPersons(
+export function getPersons(
 	requestOptions,
 	programOptions,
 	onSpinnerSuccess,
@@ -71,7 +71,7 @@ function getPersons(
 	req.end();
 }
 
-function getPerson(
+export function getPerson(
 	requestOptions,
 	programOptions,
 	onSpinnerSuccess,
@@ -99,7 +99,7 @@ function getPerson(
 	req.end();
 }
 
-function getMovies(
+export function getMovies(
 	requestOptions,
 	programOptions,
 	onSpinnerSuccess,
@@ -140,7 +140,7 @@ function getMovies(
 	req.end();
 }
 
-function getMovie(
+export function getMovie(
 	requestOptions,
 	programOptions,
 	onSpinnerSuccess,
@@ -168,7 +168,7 @@ function getMovie(
 	req.end();
 }
 
-function getMovieReviews(
+export function getMovieReviews(
 	requestOptions,
 	programOptions,
 	onSpinnerSuccess,
@@ -195,11 +195,3 @@ function getMovieReviews(
 
 	req.end();
 }
-
-export const getPaginatedRequestOptions = getPaginatedRequestOptions;
-export const getRequestOptions = getRequestOptions;
-export const getPersons = getPersons;
-export const getPerson = getPerson;
-export const getMovies = getMovies;
-export const getMovie = getMovie;
-export const getMovieReviews = getMovieReviews;

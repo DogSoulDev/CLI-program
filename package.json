@@ -1,7 +1,7 @@
 {
 	"name": "cli-program",
-	"version": "1.0.0",
-	"description": "Develop a CLI program developed with node.js that you will be able to run using a terminal application.",
+	"version": "",
+	"description": "Develop a CLI program developed with node.js",
 	"main": "app.js",
 	"type": "module",
 	"scripts": {
@@ -19,11 +19,12 @@
 	},
 	"homepage": "https://github.com/DogSoulDev/CLI-program#readme",
 	"dependencies": {
-		"commander": "^9.4.0",
-		"dotenv": "^16.0.2",
-		"node-fetch": "^3.2.10",
-		"nodemon": "^2.0.19",
-		"ora": "^6.1.2",
-		"server": "^1.0.37"
+		"commander": "9.4.0",
+		"dotenv": "16.0.2",
+		"node-fetch": "3.2.10",
+		"node-notifier": "10.0.1",
+		"nodemon": "2.0.19",
+		"ora": "6.1.2",
+		"server": "1.0.37"
 	}
 }

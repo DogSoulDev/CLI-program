@@ -7,7 +7,7 @@ config();
 const program = new Command();
 program.version("");
 
-import { getRequestOptions, getPaginatedRequestOptions, getPersons, getPerson, getMovies, getMovie, getMovieReviews } from './utils/requestMethods.js';
+import { getPaginated, getOptions, getPersons, getPerson, getMovies, getMovie, getMovieReviews } from './utils/requestMethods.js';
 import { renderPersonsData, renderPersonData, renderMoviesData, renderMovieData, renderMovieReviewsData } from './utils/renderMethods.js';
 import { createSpinnerSuccessHandler, createSpinnerErrorHandler } from './utils/createSpinnerHandlers.js';
 import { notify } from './utils/notifiers.js';
@@ -30,7 +30,7 @@ program
 			requestPath += "popular";
 		}
 
-		const requestOptions = getPaginatedRequestOptions(
+		const requestOptions = getOptions(
 			requestPath,
 			process.env.API_KEY,
 			programOptions.page,
@@ -55,7 +55,7 @@ program
 	.action(function handleAction(programOptions) {
 		const spinner = ora("Fetching the person data...").start();
 
-		const requestOptions = getRequestOptions(
+		const requestOptions = getPaginated(
 			`person/${programOptions.id}`,
 			process.env.API_KEY,
 		);
@@ -90,7 +90,7 @@ program
 			requestPath += "popular";
 		}
 
-		const requestOptions = getPaginatedRequestOptions(
+		const requestOptions = getOptions(
 			requestPath,
 			process.env.API_KEY,
 			programOptions.page,
@@ -120,7 +120,7 @@ program
 		if (programOptions.reviews) {
 			requestPath += `/reviews`;
 
-			const requestOptions = getRequestOptions(
+			const requestOptions = getPaginated(
 				requestPath,
 				process.env.API_KEY,
 			);
@@ -134,7 +134,7 @@ program
 			);
 		}
 
-		const requestOptions = getRequestOptions(requestPath, process.env.API_KEY);
+		const requestOptions = getPaginated(requestPath, process.env.API_KEY);
 
 		return getMovie(
 			requestOptions,

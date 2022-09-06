@@ -3,7 +3,7 @@ import { white, blue, magenta, yellow, gray } from "chalk";
 
 const log = console.log;
 
-function renderPersonsData(page, totalPages, persons) {
+export function renderPersonsData(page, totalPages, persons) {
 	if (totalPages > page) {
 		log(white(`\n\n----------------------------------------`));
 		log(`Page: ${white(page)} of: ${white(totalPages)}`);
@@ -46,7 +46,7 @@ function renderPersonsData(page, totalPages, persons) {
 	});
 }
 
-function renderPersonData(person) {
+export function renderPersonData(person) {
 	log(white(`\n----------------------------------------`));
 	log(`${white(`Person:\n`)}`);
 	log(`ID: ${white(person.id)}`);
@@ -76,7 +76,7 @@ function renderPersonData(person) {
 	}
 }
 
-function renderMoviesData(page, totalPages, movies) {
+export function renderMoviesData(page, totalPages, movies) {
 	if (totalPages > page) {
 		log(white(`\n\n----------------------------------------`));
 		log(`Page: ${white(page)} of: ${white(totalPages)}`);
@@ -93,7 +93,7 @@ function renderMoviesData(page, totalPages, movies) {
 	});
 }
 
-function renderMovieData(movie) {
+export function renderMovieData(movie) {
 	log(white(`\n----------------------------------------`));
 	log(`\n`);
 	log(`${white(`Movie:\n`)}`);
@@ -130,7 +130,7 @@ function renderMovieData(movie) {
 	}
 }
 
-function renderMovieReviewsData(page, totalPages, reviews, movieID) {
+export function renderMovieReviewsData(page, totalPages, reviews, movieID) {
 	console.log(movieID);
 
 	if (reviews.length > 0) {
@@ -156,9 +156,3 @@ function renderMovieReviewsData(page, totalPages, reviews, movieID) {
 		log(yellow(`\nThe movie: ${movieID} doesn’t have any reviews`));
 	}
 }
-
-export const renderPersonsData = renderPersonsData;
-export const renderPersonData = renderPersonData;
-export const renderMoviesData = renderMoviesData;
-export const renderMovieData = renderMovieData;
-export const renderMovieReviewsData = renderMovieReviewsData;
