@@ -7,10 +7,27 @@ config();
 const program = new Command();
 program.version("");
 
-import { getPaginated, getOptions, getPersons, getPerson, getMovies, getMovie, getMovieReviews } from './utils/requestMethods.js';
-import { renderPersonsData, renderPersonData, renderMoviesData, renderMovieData, renderMovieReviewsData } from './utils/renderMethods.js';
-import { createSpinnerSuccessHandler, createSpinnerErrorHandler } from './utils/createSpinnerHandlers.js';
-import { notify } from './utils/notifiers.js';
+import {
+	getPaginated,
+	getOptions,
+	getPersons,
+	getPerson,
+	getMovies,
+	getMovie,
+	getMovieReviews,
+} from "./utils/requestMethods.js";
+import {
+	renderPersonsData,
+	renderPersonData,
+	renderMoviesData,
+	renderMovieData,
+	renderMovieReviewsData,
+} from "./utils/renderMethods.js";
+import {
+	createSpinnerSuccessHandler,
+	createSpinnerErrorHandler,
+} from "./utils/createSpinnerHandlers.js";
+import { notify } from "./utils/notifiers.js";
 
 program
 	.command("get-persons")
@@ -29,13 +46,11 @@ program
 		if (programOptions.popular) {
 			requestPath += "popular";
 		}
-
 		const requestOptions = getOptions(
 			requestPath,
 			process.env.API_KEY,
 			programOptions.page,
 		);
-
 		return getPersons(
 			requestOptions,
 			programOptions,
@@ -54,12 +69,10 @@ program
 	.option("-l, --local", "Load the data from the filesystem first")
 	.action(function handleAction(programOptions) {
 		const spinner = ora("Fetching the person data...").start();
-
 		const requestOptions = getPaginated(
 			`person/${programOptions.id}`,
 			process.env.API_KEY,
 		);
-
 		return getPerson(
 			requestOptions,
 			programOptions,
@@ -79,7 +92,6 @@ program
 	.option("-l, --local", "Load the data from the filesystem first")
 	.action(function handleAction(programOptions) {
 		const spinner = ora("Fetching the movies data...").start();
-
 		let requestPath = "movie/";
 
 		if (programOptions.popular) {
@@ -95,7 +107,6 @@ program
 			process.env.API_KEY,
 			programOptions.page,
 		);
-
 		return getMovies(
 			requestOptions,
 			programOptions,
@@ -114,17 +125,12 @@ program
 	.option("-l, --local", "Load the data from the filesystem first")
 	.action(function handleAction(programOptions) {
 		const spinner = ora("Fetching the movie data...").start();
-
 		let requestPath = `movie/${programOptions.id}`;
 
 		if (programOptions.reviews) {
 			requestPath += `/reviews`;
 
-			const requestOptions = getPaginated(
-				requestPath,
-				process.env.API_KEY,
-			);
-
+			const requestOptions = getPaginated(requestPath, process.env.API_KEY);
 			return getMovieReviews(
 				requestOptions,
 				programOptions,
@@ -133,9 +139,7 @@ program
 				renderMovieReviewsData,
 			);
 		}
-
 		const requestOptions = getPaginated(requestPath, process.env.API_KEY);
-
 		return getMovie(
 			requestOptions,
 			programOptions,
@@ -153,5 +157,4 @@ program.on("command:*", function () {
 	);
 	process.exit(1);
 });
-
 program.parse(process.argv);

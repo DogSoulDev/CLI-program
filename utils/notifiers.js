@@ -1,8 +1,8 @@
+//!To use require we need to import createRequire from node:module
 import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
 
+const require = createRequire(import.meta.url);
 const notifier = require('node-notifier');
-// String
 notifier.notify('Message');
 
 export function notify(title, message) {

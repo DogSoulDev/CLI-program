@@ -1,11 +1,7 @@
-import { request } from "https";
-import { storePersonsData, readPersonsData,} from "./fsMethods.js";
+import { request } from "node:https";
+import { storePersonsData, readPersonsData } from "./fsMethods.js";
 
-export function getPaginated(
-	path = "person/popular",
-	apiKey = "",
-	page = 1,
-) {
+export function getPaginated(path = "person/popular", apiKey = "", page = 1) {
 	return {
 		href: "https://api.themoviedb.org/3/movie/550?api_key=816d07792301a398d9fdefa29b335f16",
 		protocol: "https:",
@@ -45,11 +41,9 @@ export function getPersons(
 ) {
 	const req = request(requestOptions, function onResponse(res) {
 		let responseBody = "";
-
 		res.on("data", function onData(chunk) {
 			responseBody += chunk;
 		});
-
 		res.on("end", function onEnd() {
 			const data = JSON.parse(responseBody);
 
@@ -63,11 +57,9 @@ export function getPersons(
 			}
 		});
 	});
-
 	req.on("error", function onError(err) {
 		onSpinnerError(err.message);
 	});
-
 	req.end();
 }
 
@@ -79,22 +71,18 @@ export function getPerson(
 ) {
 	const req = request(requestOptions, function onResponse(res) {
 		let responseBody = "";
-
 		res.on("data", function onData(chunk) {
 			responseBody += chunk;
 		});
-
 		res.on("end", function onEnd() {
 			const data = JSON.parse(responseBody);
 			renderData(data);
 			onSpinnerSuccess("Person data loaded");
 		});
 	});
-
 	req.on("error", function onError(err) {
 		onSpinnerError(err.message);
 	});
-
 	req.end();
 }
 
@@ -107,14 +95,11 @@ export function getMovies(
 ) {
 	const req = request(requestOptions, function onResponse(res) {
 		let responseBody = "";
-
 		res.on("data", function onData(chunk) {
 			responseBody += chunk;
 		});
-
 		res.on("end", function onEnd() {
 			const data = JSON.parse(responseBody);
-
 			if (programOptions.popular) {
 				if (programOptions.save) {
 					storePersonsData(data, onSpinnerSuccess, onSpinnerError, notify);
@@ -122,20 +107,18 @@ export function getMovies(
 					readPersonsData(renderData, onSpinnerSuccess, onSpinnerError, notify);
 				} else {
 					renderData(data.page, data.total_pages, data.results);
-					onSpinnerSuccess("Popular movies data loaded");
+					onSpinnerSuccess("Popular movies loaded");
 				}
 			} else if (programOptions.nowPlaying) {
-				onSpinnerSuccess("Movies playing now data loaded");
+				onSpinnerSuccess("Movies playing now loaded");
 			} else if (!programOptions.nowPlaying && !programOptions.popular) {
-				onSpinnerSuccess("Popular movies data loaded");
+				onSpinnerSuccess("Popular movies loaded");
 			}
 		});
 	});
-
 	req.on("error", function onError(err) {
 		onSpinnerError(err.message);
 	});
-
 	req.end();
 }
 
@@ -147,22 +130,18 @@ export function getMovie(
 ) {
 	const req = request(requestOptions, function onResponse(res) {
 		let responseBody = "";
-
 		res.on("data", function onData(chunk) {
 			responseBody += chunk;
 		});
-
 		res.on("end", function onEnd() {
 			const data = JSON.parse(responseBody);
 			renderData(data);
 			onSpinnerSuccess("Movie data loaded");
 		});
 	});
-
 	req.on("error", function onError(err) {
 		onSpinnerError(err.message);
 	});
-
 	req.end();
 }
 
@@ -174,22 +153,17 @@ export function getMovieReviews(
 ) {
 	const req = request(requestOptions, function onResponse(res) {
 		let responseBody = "";
-
 		res.on("data", function onData(chunk) {
 			responseBody += chunk;
 		});
-
 		res.on("end", function onEnd() {
 			const data = JSON.parse(responseBody);
 			renderData(data.page, data.total_pages, data.results, requestOptions.id);
 			onSpinnerSuccess("Movie reviews data loaded");
 		});
 	});
-
 	req.on("error", function onError(err) {
 		onSpinnerError(err.message);
 	});
-
 	req.end();
 }
-

@@ -1,6 +1,5 @@
 import chalk from "chalk";
 
-
 const log = console.log;
 
 export function renderPersonsData(page, totalPages, persons) {
@@ -8,27 +7,22 @@ export function renderPersonsData(page, totalPages, persons) {
 		log(chalk.white(`\n\n----------------------------------------`));
 		log(`Page: ${chalk.white(page)} of: ${chalk.white(totalPages)}`);
 	}
-
 	persons.forEach(function renderPerson(person) {
 		log(chalk.white(`----------------------------------------`));
 		log(`\n`);
 		log(`${chalk.white(`Person:\n`)}`);
 		log(`ID: ${chalk.white(person.id)}`);
 		log(`Name: ${chalk.blue.bold(person.name)}`);
-
 		if (person.known_for_department === "Acting") {
 			log(`Department: ${chalk.magenta(person.known_for_department)}`);
 		}
-
 		const hasAnyMovieWIthTitle = person.known_for.some(function knownForMovie(
 			movie,
 		) {
 			return movie.title !== undefined;
 		});
-
 		if (hasAnyMovieWIthTitle) {
 			log(chalk.white(`\nAppearing in movies:`));
-
 			person.known_for.forEach(function knownFor(movie) {
 				if (movie.title) {
 					log(`\n`);
@@ -56,17 +50,13 @@ export function renderPersonData(person) {
 			person.place_of_birth,
 		)}`,
 	);
-
 	if (person.known_for_department === "Acting") {
 		log(`Department: ${chalk.magenta(person.known_for_department)}`);
 	}
-
 	log(`Biography: ${chalk.blue.bold(person.biography)}`);
-
 	if (person.also_known_as.length > 0) {
 		log(`\n`);
 		log(`${chalk.white(`Also known as:\n`)}`);
-
 		person.also_known_as.forEach(function personAKA(alias) {
 			log(chalk.white(alias));
 		});
@@ -81,7 +71,6 @@ export function renderMoviesData(page, totalPages, movies) {
 		log(chalk.white(`\n\n----------------------------------------`));
 		log(`Page: ${chalk.white(page)} of: ${chalk.white(totalPages)}`);
 	}
-
 	movies.forEach(function renderMovie(movie) {
 		log(chalk.white(`----------------------------------------`));
 		log(`\n`);
@@ -105,7 +94,6 @@ export function renderMovieData(movie) {
 	log(`Overview: ${chalk.white(movie.overview)}`);
 	log(`\n`);
 	log(`${chalk.white(`Genres:\n`)}`);
-
 	if (movie.genres.length > 0) {
 		movie.genres.forEach(function showMovieGenre(genre) {
 			log(chalk.white(genre.name));
@@ -113,10 +101,8 @@ export function renderMovieData(movie) {
 	} else {
 		log(chalk.yellow("The movie doesn’t have a declared genre"));
 	}
-
 	log(`\n`);
 	log(`${chalk.white(`Spoken Languages:\n`)}`);
-
 	if (movie.spoken_languages.length > 0) {
 		movie.spoken_languages.forEach(function showMovieLanguages(lang) {
 			log(chalk.white(lang.name));
@@ -132,22 +118,18 @@ export function renderMovieData(movie) {
 
 export function renderMovieReviewsData(page, totalPages, reviews, movieID) {
 	console.log(movieID);
-
 	if (reviews.length > 0) {
 		if (totalPages > page) {
 			log(chalk.white(`\n\n----------------------------------------`));
 			log(`Page: ${chalk.white(page)} of: ${chalk.white(totalPages)}`);
 		}
-
 		log(chalk.white(`\n----------------------------------------`));
 		log(`\n`);
-
 		reviews.forEach(function showMovieGenre(review) {
 			let reviewText = review.content;
 			if (review.content.length > 400) {
 				reviewText = review.content.slice(0, 400) + "...";
 			}
-
 			log(`Author: ${chalk.blue.bold(review.author)}`);
 			log(`Content: ${chalk.white(reviewText)}`);
 			log(`\n`);
