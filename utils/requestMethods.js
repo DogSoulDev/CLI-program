@@ -62,7 +62,7 @@ export function getPersons(
 	req.end();
 }
 
-const formatPerson = (data) => {
+const formatPerson = (data) => {   //*colors with Chalk at terminal.
 	console.log(`Person:
     ID: ${data.id}
     Name: ${chalk.blue(data.name)}
@@ -85,7 +85,6 @@ export function getPerson(
 		path: `/3/person/${id}?api_key=${process.env.API_KEY}&language=en-US`,
 		method: "GET",
 	};
-
 	const req = request(options, function onResponse(res) {
 		let responseBody = "";
 		res.on("data", function onData(chunk) {
@@ -93,7 +92,7 @@ export function getPerson(
 		});
 		res.on("end", function onEnd() {
 			const data = JSON.parse(responseBody);
-			formatPerson(data); //se llama a una funcion que colorea con el chalk , //*formatPerson
+			formatPerson(data); //se llama a una funcion que colorea lo que trae data con el chalk , //!formatPerson
 			// onSpinnerSuccess("Person data loaded");
 		});
 	});
