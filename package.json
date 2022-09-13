@@ -1,0 +1,29 @@
+{
+	"name": "cli-program",
+	"version": "",
+	"description": "Develop a CLI program developed with node.js",
+	"main": "app.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DogSoulDev/CLI-program.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/DogSoulDev/CLI-program/issues"
+	},
+	"homepage": "https://github.com/DogSoulDev/CLI-program#readme",
+	"dependencies": {
+		"commander": "9.4.0",
+		"dotenv": "16.0.2",
+		"node-notifier": "10.0.1",
+		"nodemon": "2.0.19",
+		"ora": "6.1.2",
+		"server": "1.0.37"
+	}
+}

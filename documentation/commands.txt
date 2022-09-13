@@ -1,0 +1,16 @@
+🌐"Get" Persons
+node moviedb.js get-persons --page 2 -p
+node moviedb.js get-persons --page 3 --popular
+
+🚩"Error" Command : need options
+node moviedb.js get-persons --page 3
+
+🤷"Get" Persons Details
+node moviedb.js get-person --id 3
+
+🎞️ "Get" Popular Movies
+Default popular
+node moviedb.js get-movies --page 3
+
+🎥"Get" Movie Details
+node moviedb.js get-movie --id 3
